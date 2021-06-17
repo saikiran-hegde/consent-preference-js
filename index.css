@@ -1,3 +1,5 @@
+@import "./node_modules/toggle-switch-css/build/toggle-switch.css";
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -24,19 +26,27 @@ body > .profile-container {
 .profile-info {
   margin-top: 1.25rem;
   padding: 1rem;
-  background: #FFFFFF;
-  border: 1px solid rgba(193, 193, 197, 0.3);
-  border-radius: 0.25rem;
+  border-radius: 0.25rem 0.25rem 0 0;
   display: grid;
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: 2.5rem repeat(3, 1fr);
   grid-template-areas: "collapse header1 header2 header3"
     "collapse value1 value2 value3";
 }
-.collapse-icon {
-  grid-area: collapse;
+.border-class {
+  border: 1px solid rgba(193, 193, 197, 0.3);
 }
-.collapse-icon > .uil-angle-right {
+.white-bg {
+  background: #FFFFFF;
+}
+#collapse-icon-div {
+  grid-area: collapse;
+  align-self: center;
+}
+#collapse-icon {
+  cursor: pointer;
+}
+.uil-angle-right {
   color: #AEB7C0;
 }
 .header-size {
@@ -50,4 +60,28 @@ body > .profile-container {
 }
 .value-size {
   font-size: 12px;
+}
+.consent-preference {
+  width: 100%;
+  height: 12rem;
+  border-top: 0;
+  grid-template-rows: 5rem repeat(2, 1fr);
+  border-radius: 0 0 0.25rem 0.25rem;
+  display: none;
+}
+.consent-preference > .preference-header {
+  padding: 2rem 1rem;
+}
+.consent-preference > .preference-div {
+  padding: 0.5rem 1rem;
+  display: grid;
+  grid-template-columns: 2.5rem repeat(2, 1fr);
+  align-items: center;
+}
+.bottom-border {
+  border-bottom: 1px solid rgba(193, 193, 197, 0.3);
+}
+.consent-toggle-switch {
+  --bar-height: 10px;
+  --knob-size: 15px;
 }
