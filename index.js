@@ -18,8 +18,6 @@ function setValue() {
   document.getElementById('obtm-toggle-switch').checked = true;
 }
 
-setValue();
-
 function checkboxValueChange(event) {
   console.log(`${event.currentTarget.id} - ${event.currentTarget.checked}`);
 }
@@ -35,3 +33,24 @@ function showHide() {
     consentDiv.style.display = 'none';
   }
 }
+
+const profileContainer = document.getElementsByClassName('profile-container')[0];
+profileContainer.style.display = 'none';
+
+const signIn = new OktaSignIn({
+  baseUrl: 'https://zeotap.oktapreview.com',
+  logo: 'https://content.zeotap.com/img/Zeotap%20Private%20Channel.png',
+  clientId: '0oa1kkxu0r6xSg2j40x7',
+  redirectURI: 'http://localhost:8080'
+});
+signIn.renderEl({
+  el: '#widget-container'
+}, function success(res) {
+  if (res.status === 'SUCCESS') {
+    console.log('Do something with this sessionToken', res.session.token);
+    setValue();
+    profileContainer.style.display = 'block';
+  } else {
+    alert('Invalid User');
+  }
+});
