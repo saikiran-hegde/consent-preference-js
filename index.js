@@ -37,20 +37,46 @@ function showHide() {
 const profileContainer = document.getElementsByClassName('profile-container')[0];
 profileContainer.style.display = 'none';
 
-const signIn = new OktaSignIn({
-  baseUrl: 'https://zeotap.oktapreview.com',
-  logo: 'https://content.zeotap.com/img/Zeotap%20Private%20Channel.png',
+const authClient = new OktaAuth({
+  url: 'https://login-staging.zeotap.com/',
+  issuer: 'https://login-staging.zeotap.com/oauth2/default',
   clientId: '0oa1kkxu0r6xSg2j40x7',
-  redirectURI: 'http://localhost:8080'
+  redirectUri: 'http://localhost:8080'
 });
-signIn.renderEl({
-  el: '#widget-container'
-}, function success(res) {
-  if (res.status === 'SUCCESS') {
-    console.log('Do something with this sessionToken', res.session.token);
-    setValue();
-    profileContainer.style.display = 'block';
-  } else {
-    alert('Invalid User');
-  }
-});
+
+if (authClient.isLoginRedirect()) {
+  authClient.token.parseFromUrl()
+    .then(data => {
+      const { idToken } = data.tokens;
+      authClient.tokenManager.add('idToken', idToken);
+      console.log(idToken);
+      setValue();
+      profileContainer.style.display = 'block';
+    });
+} else {
+  authClient.tokenManager.get('idToken')
+    .then(idToken => {
+      if (idToken) {
+        console.log(idToken);
+        setValue();
+        profileContainer.style.display = 'block';
+      } else {
+        // With redirecting user to Okta Page
+        // authClient.token.getWithRedirect({
+        //   responseType: 'id_token'
+        // });
+
+        // With user credentials
+        const username = prompt('Username');
+        const password = prompt('Password');
+
+        authClient.signInWithCredentials({username, password})
+        .then(transaction => {
+          authClient.token.getWithRedirect({
+            sessionToken: transaction.sessionToken,
+            responseType: 'id_token'
+          });
+        })
+      }
+    })
+}

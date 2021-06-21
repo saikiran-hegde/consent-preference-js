@@ -1,4 +1,4 @@
-@import './node_modules/@okta/okta-signin-widget/dist/css/okta-sign-in.min.css';
+@import "./node_modules/toggle-switch-css/build/toggle-switch.css";
 
 * {
   box-sizing: border-box;
