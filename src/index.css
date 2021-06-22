@@ -1,4 +1,4 @@
-@import "./node_modules/toggle-switch-css/build/toggle-switch.css";
+@import "../node_modules/toggle-switch-css/build/toggle-switch.css";
 
 * {
   box-sizing: border-box;
