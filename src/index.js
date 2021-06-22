@@ -1,3 +1,5 @@
+import './index.css';
+
 const icomId = document.getElementById('icomId'),
   hhId = document.getElementById('hhId'),
   ucId = document.getElementById('ucId');
