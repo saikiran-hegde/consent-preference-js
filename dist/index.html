@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+  <script src="https://global.oktacdn.com/okta-auth-js/4.5.0/okta-auth-js.min.js" type="text/javascript"></script>
+  <!-- <link rel="stylesheet" href="src/index.css"> -->
+  <title>Consent Preference</title>
+</head>
+
+<body>
+  <section class="profile-container">
+    <span id="customer-matched">Customers Matched</span>
+    <section class="profile-info border-class white-bg">
+      <div id="collapse-icon-div">
+        <i class="uil uil-angle-right" id="collapse-icon" onclick="showHide()"></i>
+      </div>
+      <div class="header-size text-color bold-color">iCOMs ID</div>
+      <div class="header-size text-color">Household ID</div>
+      <div class="header-size text-color">Unique Customer ID</div>
+      <div class="text-color bold-color value-size" id="icomId"></div>
+      <div class="text-color value-size" id="hhId"></div>
+      <div class="text-color value-size" id="ucId"></div>
+    </section>
+    <section class="border-class consent-preference white-bg" id="consent-preference">
+      <div class="preference-header text-color header-size bottom-border">Consent Preferences</div>
+      <div class="preference-div bottom-border">
+        <div>
+          <i class="uil uil-angle-right"></i>
+        </div>
+        <div class="text-color value-size">Global Opt In</div>
+        <div>
+          <label class="toggle-switch consent-toggle-switch">
+            <input type="checkbox" id="global-toggle-switch" class="toggle-switch-input" onchange="checkboxValueChange(event)" />
+            <label for="global-toggle-switch" class="toggle-switch-label"></label>
+          </label>
+        </div>
+      </div>
+      <div class="preference-div">
+        <div>
+          <i class="uil uil-angle-right"></i>
+        </div>
+        <div class="text-color value-size">OBTM Opt In</div>
+        <div>
+          <label class="toggle-switch consent-toggle-switch">
+            <input type="checkbox" id="obtm-toggle-switch" class="toggle-switch-input" onchange="checkboxValueChange(event)" />
+            <label for="obtm-toggle-switch" class="toggle-switch-label"></label>
+          </label>
+        </div>
+      </div>
+    </section>
+  </section>
+  <script src="bundle.js"></script>
+</body>
+
+</html>
