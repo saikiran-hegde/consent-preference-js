@@ -1,4 +1,4 @@
-import './index.css';
+require('./index.css');
 
 const icomId = document.getElementById('icomId'),
   hhId = document.getElementById('hhId'),
@@ -10,6 +10,9 @@ const urlData = {
   }
 }
 
+const profileContainer = document.getElementsByClassName('profile-container')[0];
+profileContainer.style.display = 'none';
+
 function setValue(icomIdVal, hhIdVal, ucIdVal) {
   icomId.innerText = icomIdVal;
   hhId.innerText = hhIdVal;
@@ -19,25 +22,6 @@ function setValue(icomIdVal, hhIdVal, ucIdVal) {
   document.getElementById('global-toggle-switch').checked = true;
   document.getElementById('obtm-toggle-switch').checked = true;
 }
-
-function checkboxValueChange(event) {
-  console.log(`${event.currentTarget.id} - ${event.currentTarget.checked}`);
-}
-
-function showHide() {
-  const collapseDiv = document.getElementById('collapse-icon-div'),
-    consentDiv = document.getElementById('consent-preference');
-  if (consentDiv.style.display === 'none' || consentDiv.style.display === '') {
-    collapseDiv.style.transform = "rotate(90deg) translate(12px, 14px)";
-    consentDiv.style.display = 'grid';
-  } else {
-    collapseDiv.style.transform = "rotate(0deg)";
-    consentDiv.style.display = 'none';
-  }
-}
-
-const profileContainer = document.getElementsByClassName('profile-container')[0];
-profileContainer.style.display = 'none';
 
 function fetchProfileData(accessToken) {
   fetch('http://idgraph-qa-eu.zeotap.net/graph-manager/v1/orgs/1746/region/EU/users/_search',
@@ -83,3 +67,20 @@ if (authClient.isLoginRedirect()) {
       }
     })
 }
+
+module.exports = {
+  checkboxValueChange: function(event) {
+    console.log(`${event.currentTarget.id} - ${event.currentTarget.checked}`);
+  },
+  showHide: function() {
+    const collapseDiv = document.getElementById('collapse-icon-div'),
+      consentDiv = document.getElementById('consent-preference');
+    if (consentDiv.style.display === 'none' || consentDiv.style.display === '') {
+      collapseDiv.style.transform = "rotate(90deg) translate(12px, 14px)";
+      consentDiv.style.display = 'grid';
+    } else {
+      collapseDiv.style.transform = "rotate(0deg)";
+      consentDiv.style.display = 'none';
+    }
+  }
+};
