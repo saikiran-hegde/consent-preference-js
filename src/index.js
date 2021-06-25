@@ -13,6 +13,26 @@ const urlData = {
 const profileContainer = document.getElementsByClassName('profile-container')[0];
 profileContainer.style.display = 'none';
 
+function checkboxValueChange(event) {
+  console.log(`${event.currentTarget.id} - ${event.currentTarget.checked}`);
+}
+
+function showHide() {
+  const collapseDiv = document.getElementById('collapse-icon-div'),
+    consentDiv = document.getElementById('consent-preference');
+  if (consentDiv.style.display === 'none' || consentDiv.style.display === '') {
+    collapseDiv.style.transform = "rotate(90deg) translate(12px, 14px)";
+    consentDiv.style.display = 'grid';
+  } else {
+    collapseDiv.style.transform = "rotate(0deg)";
+    consentDiv.style.display = 'none';
+  }
+}
+
+document.getElementById('collapse-icon').addEventListener('click', showHide);
+document.getElementById('global-toggle-switch').addEventListener('change', checkboxValueChange);
+document.getElementById('obtm-toggle-switch').addEventListener('change', checkboxValueChange);
+
 function setValue(icomIdVal, hhIdVal, ucIdVal) {
   icomId.innerText = icomIdVal;
   hhId.innerText = hhIdVal;
@@ -36,7 +56,7 @@ function fetchProfileData(accessToken) {
       })
       .then(response => response.json())
       .then(response => {
-        data = response[0];
+        const data = response[0];
         setValue(data.ids.icoms_account_uid[0].icoms_account_uid, data.ucid, data.ids.household_id[0].household_id);
         profileContainer.style.display = 'block';
       });
@@ -67,20 +87,3 @@ if (authClient.isLoginRedirect()) {
       }
     })
 }
-
-module.exports = {
-  checkboxValueChange: function(event) {
-    console.log(`${event.currentTarget.id} - ${event.currentTarget.checked}`);
-  },
-  showHide: function() {
-    const collapseDiv = document.getElementById('collapse-icon-div'),
-      consentDiv = document.getElementById('consent-preference');
-    if (consentDiv.style.display === 'none' || consentDiv.style.display === '') {
-      collapseDiv.style.transform = "rotate(90deg) translate(12px, 14px)";
-      consentDiv.style.display = 'grid';
-    } else {
-      collapseDiv.style.transform = "rotate(0deg)";
-      consentDiv.style.display = 'none';
-    }
-  }
-};
